@@ -150,7 +150,8 @@ app.use(
                 "data:",
                 "https://res.cloudinary.com/dgwxv1zwp/", 
                 "https://fastly.picsum.photos/",
-                "https://picsum.photos/"
+                "https://picsum.photos/",
+                "https://images.unsplash.com"
             ],
             fontSrc: ["'self'", ...fontSrcUrls],
         },
