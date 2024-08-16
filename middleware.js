@@ -1,6 +1,6 @@
-const { campgroundSchema, reviewSchema } = require('./schemas.js');
+const { markerSchema, reviewSchema } = require('./schemas.js');
 const ExpressError = require('./utils/ExpressError');
-const Campground = require('./models/campground');
+const Marker = require('./models/markers.js');
 const Review = require('./models/review');
 
 
@@ -16,16 +16,16 @@ module.exports.isLoggedIn = (req, res, next) => {
     next();
 }
 
-// Save returnTo value from session to res.locals
+// Save returnTo value from session to res.markers
 module.exports.storeReturnTo = (req, res, next) => {
     if (req.session.returnTo) {
-        res.locals.returnTo = req.session.returnTo;
+        res.markers.returnTo = req.session.returnTo;
     }
     next();
 }
 
-module.exports.validateCampground = (req, res, next) => {
-    const { error } = campgroundSchema.validate(req.body);
+module.exports.validateMarker = (req, res, next) => {
+    const { error } = markerSchema.validate(req.body);
     if (error) {
         const msg = error.details.map(el => el.message).join(',')
         throw new ExpressError(msg, 400)
@@ -37,26 +37,26 @@ module.exports.validateCampground = (req, res, next) => {
 // valid if this is the user
 module.exports.isAuthor = async (req, res, next) => {
     const { id } = req.params;
-    const campground = await Campground.findById(id);
-    if (!campground.author.equals(req.user._id)) {
+    const marker = await Marker.findById(id);
+    if (!marker.author.equals(req.user._id)) {
         req.flash('error', 'You do not have permission to do that!');
-        return res.redirect(`/campgrounds/${id}`);
+        return res.redirect(`/markers/${id}`);
     }
     next();
 }
 
-// campgrounds/:id/review/reviewId
+// markers/:id/review/reviewId
 module.exports.isReviewAuthor = async (req, res, next) => {
     const { id, reviewId } = req.params;
     const review = await Review.findById(reviewId);
     if (!review.author.equals(req.user._id)) {
         req.flash('error', 'You do not have permission to do that!');
-        return res.redirect(`/campgrounds/${id}`);
+        return res.redirect(`/markers/${id}`);
     }
     next();
 }
 
-// validate a campground and handel error
+// validate a marker and handel error
 module.exports.validateReview = (req, res, next) => {
     const { error } = reviewSchema.validate(req.body);
     if (error) {

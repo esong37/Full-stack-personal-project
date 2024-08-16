@@ -26,7 +26,7 @@ const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 
 const userRoutes = require('./routes/users');
-const campgroundRoutes = require('./routes/campground');
+const markerRoutes = require('./routes/marker');
 const reviewRoutes = require('./routes/reviews');
 
 // MongoDB session store for Connect and Express
@@ -34,12 +34,13 @@ const MongoStore = require('connect-mongo');
 
 // online db url
 //const dbURL = process.env.DB_URL;
-const dbURL = process.env.DB_URL || 'mongodb://localhost:27017/yelp-camp';
+//const dbURL = process.env.DB_URL || 'mongodb://localhost:27017/explore-hub';\
+const dbURL = 'mongodb://localhost:27017/explore-hub';
 
 /**
  * connect to db
  */
-//mongoose.connect('mongodb://localhost:27017/yelp-camp');
+//mongoose.connect('mongodb://localhost:27017/explore-hub');
 mongoose.connect(dbURL);
 
 
@@ -181,9 +182,9 @@ app.use((req,res,next) =>{
 app.use('/', userRoutes);
 // use the router we created 
 // separate router in different files
-app.use('/campgrounds', campgroundRoutes);
+app.use('/markers', markerRoutes);
 //  to access id here need express.Router({mergeParams : true});
-app.use('/campgrounds/:id/reviews', reviewRoutes);
+app.use('/markers/:id/reviews', reviewRoutes);
 
 app.get('/', (req, res) => {
     res.render('home')

@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 const cities = require('./cities'); // 1000 cities
 const { places, descriptors } = require('./seedHelpers');
-const Campground = require('../models/campground');
+const Marker = require('../models/markers');
 
-mongoose.connect('mongodb://localhost:27017/yelp-camp');
+mongoose.connect('mongodb://localhost:27017/explore-hub');
 
 const db = mongoose.connection;
 
@@ -17,11 +17,11 @@ const sample = array => array[Math.floor(Math.random() * array.length)];
 
 
 const seedDB = async () => {
-    // Delete all documents in the Campground collection
+    // Delete all documents in the Marker collection
     // ensure that the database starts from an empty state
-    await Campground.deleteMany({});
+    await Marker.deleteMany({});
 
-    // create 50 new Campground documents
+    // create 50 new Marker documents
     for (let i = 0; i < 50; i++) {
         // select a random city
         const random1000 = Math.floor(Math.random() * 1000);
@@ -29,15 +29,15 @@ const seedDB = async () => {
         const price = Math.floor(Math.random() * 20) + 10;
 
 
-        const camp = new Campground({
+        const mark = new Marker({
 
             // author
-            author: '66b9162e5229830ae5c53826',
+            author: '66bfbd96cacf7f64ee69be09',
 
-            // generate the location of the campground using a randomly selected city and state
+            // generate the location of the Location using a randomly selected city and state
             location: `${cities[random1000].city}, ${cities[random1000].state}`,
 
-            // generate the title of the campground using randomly selected elements from the descriptors and places arrays
+            // generate the title of the Location using randomly selected elements from the descriptors and places arrays
             title: `${sample(descriptors)} ${sample(places)}`,
 
            
@@ -54,21 +54,21 @@ const seedDB = async () => {
 
             price,
 
-             // get a random image for each campground
+             // get a random image for each location
             image: `https://picsum.photos/400?random=${Math.random()}`,
 
             images: [
                 {
                     url: `https://picsum.photos/400?random=${Math.random()}`,
-                    filename: 'YelpCamp/ahfnenvca4tha00h2ubt'
+                    filename: 'ExploreHub/ahfnenvca4tha00h2ubt'
                 },
                 {
                     url: `https://picsum.photos/400?random=${Math.random()}`,
-                    filename: 'YelpCamp/ruyoaxgf72nzpi4y6cdi'
+                    filename: 'ExploreHub/ruyoaxgf72nzpi4y6cdi'
                 }
             ]
         })
-        await camp.save();
+        await mark.save();
     }
 }
 

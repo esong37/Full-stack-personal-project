@@ -11,7 +11,7 @@ cloudinary.config({
 const storage = new CloudinaryStorage({
     cloudinary,
     params: {
-        folder: 'YelpCamp',
+        folder: 'ExploreHub',
         allowedFormats: ['jpeg', 'png', 'jpg']
     }
 });

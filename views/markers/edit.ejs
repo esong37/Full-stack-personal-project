@@ -1,6 +1,6 @@
 <% layout('layouts/boilerplate')%>
 <div class="row">
-    <h1 class="text-center">Edit Campground</h1>
+    <h1 class="text-center">Edit Markers</h1>
     <div class="col-6 offset-3">
         <!-- enctype="multipart/form-data":  
          enctype: defines how the data is encoded when the form is submitted.
@@ -8,20 +8,20 @@
             Text fields and binary data (such as files) can be transmitted at the same time.
          
          -->
-        <form action="/campgrounds/<%=campground._id%>?_method=PUT" method="POST" novalidate class="validated-form"
+        <form action="/markers/<%=marker._id%>?_method=PUT" method="POST" novalidate class="validated-form"
             enctype="multipart/form-data">
             <div class="mb-3">
                 <label class="form-label" for="title">Title</label>
-                <input class="form-control" type="text" id="title" name="campground[title]"
-                    value="<%=campground.title %>" required>
+                <input class="form-control" type="text" id="title" name="marker[title]"
+                    value="<%=marker.title %>" required>
                 <div class="valid-feedback">
                     Looks good!
                 </div>
             </div>
             <div class="mb-3">
                 <label class="form-label" for="location">Location</label>
-                <input class="form-control" type="text" id="location" name="campground[location]"
-                    value="<%=campground.location %>" required>
+                <input class="form-control" type="text" id="location" name="marker[location]"
+                    value="<%=marker.location %>" required>
                 <div class="valid-feedback">
                     Looks good!
                 </div>
@@ -33,11 +33,11 @@
             </div> -->
 
             <div class="mb-3">
-                <label class="form-label" for="price">Campground Price</label>
+                <label class="form-label" for="price">Price</label>
                 <div class="input-group">
                     <span class="input-group-text" id="price-label">$</span>
                     <input type="text" class="form-control" id="price" placeholder="0.00" aria-label="price"
-                        aria-describedby="price-label" name="campground[price]" value="<%=campground.price %>"
+                        aria-describedby="price-label" name="marker[price]" value="<%=marker.price %>"
                         required>\<div class="valid-feedback">
                         Looks good!
                     </div>
@@ -46,8 +46,8 @@
 
             <div class="mb-3">
                 <label class="form-label" for="description">Description</label>
-                <textarea class="form-control" type="text" id="description" name="campground[description]"
-                    required><%= campground.description%></textarea>
+                <textarea class="form-control" type="text" id="description" name="marker[description]"
+                    required><%= marker.description%></textarea>
                 <div class="valid-feedback">
                     Looks good!
                 </div>
@@ -67,7 +67,7 @@
 
 
             <div class="mb-3">
-                <% campground.images.forEach(function(img, i) {  %>
+                <% marker.images.forEach(function(img, i) {  %>
 
                 <img src="<%=img.thumbnail %>" class="img-thumbnail" alt="">
                 <div class="form-check-inline">
@@ -78,10 +78,10 @@
                 <% })%>
             </div>
             <div class="mb-3">
-                <button class="btn btn-info">Update Campground</button>
+                <button class="btn btn-info">Update Marker</button>
             </div>
         </form>
-        <a href="/campgrounds/<%= campground._id%>">Back To Campground</a>
+        <a href="/markers/<%= marker._id%>">Back To Marker</a>
 
     </div>
 </div>

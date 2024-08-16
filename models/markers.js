@@ -19,7 +19,7 @@ ImageSchema.virtual('thumbnail').get(function () {
 const opts = { toJSON: { virtuals: true } };
 
 
-const CampgroundSchema = new Schema({
+const markerSchema = new Schema({
     title: String,
     images: [ImageSchema],
     geometry: {
@@ -50,14 +50,14 @@ const CampgroundSchema = new Schema({
 }, opts);
 
 // so can access from map-box
-CampgroundSchema.virtual('properties.popUpMarkup').get(function () {
+markerSchema.virtual('properties.popUpMarkup').get(function () {
     return `
-    <strong><a href="/campgrounds/${this._id}">${this.title}</a><strong>
+    <strong><a href="/markers/${this._id}">${this.title}</a><strong>
     <p>${this.location}</p>`
 });
 
 // delete middleware
-CampgroundSchema.post('findOneAndDelete', async function (doc) {
+markerSchema.post('findOneAndDelete', async function (doc) {
     if (doc) {
         await Review.deleteMany({
             _id: {
@@ -67,4 +67,4 @@ CampgroundSchema.post('findOneAndDelete', async function (doc) {
     }
 })
 
-module.exports = mongoose.model('Campground', CampgroundSchema);
+module.exports = mongoose.model('Marker', markerSchema);
