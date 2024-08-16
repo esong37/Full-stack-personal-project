@@ -34,8 +34,8 @@ const MongoStore = require('connect-mongo');
 
 // online db url
 //const dbURL = process.env.DB_URL;
-//const dbURL = process.env.DB_URL || 'mongodb://localhost:27017/explore-hub';\
-const dbURL = 'mongodb://localhost:27017/explore-hub';
+const dbURL = process.env.DB_URL || 'mongodb://localhost:27017/explore-hub';
+//const dbURL = 'mongodb://localhost:27017/explore-hub';
 
 /**
  * connect to db
